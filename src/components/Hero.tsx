@@ -1,194 +1,199 @@
+import React from 'react';
 import { motion } from 'motion/react';
-import { Sparkles, ArrowRight, Shield, Award, TrendingUp, Play } from 'lucide-react';
+import { ShieldCheck, TrendingUp, Sparkles, Flame, Play, Calculator, Award } from 'lucide-react';
 
-export default function Hero({ 
-  onOpenLeadForm,
-  onScrollToTrial 
-}: { 
-  onOpenLeadForm: () => void;
-  onScrollToTrial: () => void;
-}) {
+interface HeroProps {
+  onScrollToSection: (id: string) => void;
+}
+
+export default function Hero({ onScrollToSection }: HeroProps) {
   return (
-    <section className="relative min-h-screen bg-slate-950 text-white flex items-center justify-center pt-24 pb-16 overflow-hidden">
-      
-      {/* Premium ambient light glow effects */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-amber-500/10 rounded-full filter blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[400px] h-[400px] bg-yellow-600/10 rounded-full filter blur-[130px] pointer-events-none" />
-      
-      {/* Interactive geometric mesh lines overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none opacity-60" />
+    <section id="hero" className="relative min-h-screen bg-slate-50 text-slate-900 flex flex-col justify-center overflow-hidden pt-28 pb-16 px-4 md:px-8 border-b border-slate-200">
+      {/* Geometric background accents */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-slate-200/50 rounded-full blur-2xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Hero Content Info (7 columns) */}
-          <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
-            
-            {/* Tag/Badge of Trust */}
-            <motion.div 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-900 border border-slate-800 text-amber-400 text-xs font-semibold tracking-wider uppercase mx-auto lg:mx-0"
-            >
-              <Sparkles className="w-4 h-4 text-amber-500 animate-pulse" />
-              <span>Освойте IASTM-технику за 7 часов</span>
-            </motion.div>
-
-            {/* Main Punchy Sales Heading */}
-            <div className="space-y-4">
-              <motion.h1 
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl sm:text-5xl md:text-6xl font-serif font-semibold tracking-tight leading-tight text-white"
-              >
-                Инструментальный <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-500">
-                  массаж скребком
-                </span>
-              </motion.h1>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
-              >
-                Облегчите нагрузку на руки и пальцы на <strong>65%</strong> без потери глубины проработки. Научитесь уверенно работать с крупными клиентами и зарабатывать больше.
-              </motion.p>
-            </div>
-
-            {/* Micro value badges */}
-            <motion.div 
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="grid grid-cols-3 gap-3 max-w-lg mx-auto lg:mx-0 pt-2 text-left"
-            >
-              <div className="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80 space-y-1">
-                <Shield className="w-5 h-5 text-amber-500" />
-                <div className="text-xs text-slate-400">Суставы рук</div>
-                <div className="text-sm font-bold text-slate-100">Здоровы на 100%</div>
-              </div>
-              
-              <div className="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80 space-y-1">
-                <TrendingUp className="w-5 h-5 text-emerald-400" />
-                <div className="text-xs text-slate-400">Окупаемость</div>
-                <div className="text-sm font-bold text-slate-100">всего за 3 сеанса</div>
-              </div>
-
-              <div className="bg-slate-900/60 p-3.5 rounded-xl border border-slate-800/80 space-y-1">
-                <Award className="w-5 h-5 text-amber-500" />
-                <div className="text-xs text-slate-400">Сертификат</div>
-                <div className="text-sm font-bold text-slate-100">Электронный & Почтой</div>
-              </div>
-            </motion.div>
-
-            {/* Action CTAs */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
-            >
-              <button
-                onClick={onOpenLeadForm}
-                className="w-full sm:w-auto bg-amber-500 text-slate-950 font-bold py-4 px-8 rounded-2xl hover:bg-amber-400 hover:shadow-xl hover:shadow-amber-500/20 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 text-sm uppercase tracking-wider"
-              >
-                <span>Начать обучение</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <button
-                onClick={onScrollToTrial}
-                className="w-full sm:w-auto bg-slate-900 text-slate-200 font-semibold py-4 px-8 rounded-2xl hover:bg-slate-800 hover:text-white border border-slate-800 transition-all duration-300 flex items-center justify-center gap-2 text-sm"
-              >
-                <Play className="w-4 h-4 text-amber-500 fill-current" />
-                <span>Смотреть пробные уроки</span>
-              </button>
-            </motion.div>
-
-            {/* Quick social proof bullet */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-xs text-slate-400 flex items-center justify-center lg:justify-start gap-1.5"
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Уже более 340+ массажистов прошли обучение в этом месяце</span>
-            </motion.div>
-
-          </div>
-
-          {/* Right Hero Visuals / Presentation Frame (5 columns) */}
+      <div className="max-w-6xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        {/* Left Column: Text Content */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* Badge */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-5 relative w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 px-3.5 py-1.5 rounded-full text-xs md:text-sm font-bold tracking-wide w-fit"
           >
-            {/* MOBILE/TABLET VIEW: Square Photo (1:1 Aspect) */}
-            <div className="block lg:hidden relative mx-auto max-w-sm rounded-3xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl p-2.5">
-              <div className="aspect-square rounded-2xl overflow-hidden relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=600&h=600&auto=format&fit=crop" 
-                  alt="Преподаватель со скребком (мобильная версия)" 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                  referrerPolicy="no-referrer"
-                />
-                
-                {/* Floating reviews badge */}
-                <div className="absolute bottom-3 left-3 right-3 bg-slate-950/85 backdrop-blur-md p-3.5 rounded-xl border border-slate-800 flex items-center gap-3 shadow-xl">
-                  <div className="w-9 h-9 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-sm flex-shrink-0">
-                    4.9
-                  </div>
-                  <div className="space-y-0.5">
-                    <span className="block text-xs font-semibold text-white">Средняя оценка</span>
-                    <span className="block text-[9px] text-slate-400">На основе 240+ отзывов</span>
-                  </div>
-                </div>
-
-                {/* Scraper highlight outline effect */}
-                <div className="absolute top-3 right-3 bg-amber-500 text-slate-950 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg">
-                  IASTM Техника
-                </div>
-              </div>
-            </div>
-
-            {/* DESKTOP/PC VIEW: Wide Photo (3:2 Aspect for maximum visual impact) */}
-            <div className="hidden lg:block relative mx-auto max-w-xl rounded-3xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl p-3">
-              <div className="aspect-[3/2] rounded-2xl overflow-hidden relative">
-                <img 
-                  src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=1200&h=800&auto=format&fit=crop" 
-                  alt="Преподаватель со скребком (версия для ПК)" 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                  referrerPolicy="no-referrer"
-                />
-                
-                {/* Floating reviews badge */}
-                <div className="absolute bottom-4 left-4 right-4 bg-slate-950/85 backdrop-blur-md p-4 rounded-xl border border-slate-800 flex items-center gap-3.5 shadow-xl">
-                  <div className="w-10 h-10 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold flex-shrink-0">
-                    4.9
-                  </div>
-                  <div className="space-y-0.5">
-                    <span className="block text-xs font-semibold text-white">Средняя оценка выпускников</span>
-                    <span className="block text-[10px] text-slate-400">На основе 240+ подробных отзывов</span>
-                  </div>
-                </div>
-
-                {/* Scraper highlight outline effect */}
-                <div className="absolute top-4 right-4 bg-amber-500 text-slate-950 text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg shadow-lg">
-                  IASTM Техника
-                </div>
-              </div>
-            </div>
-
-            {/* Extra side decorative blur element */}
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-amber-500/20 rounded-full filter blur-[40px] pointer-events-none" />
+            <Flame className="w-4 h-4 text-emerald-600 animate-pulse" />
+            <span>ИНСТРУМЕНТАЛЬНЫЙ МАССАЖ • ОНЛАЙН-КУРС</span>
           </motion.div>
 
+          {/* Title */}
+          <div className="space-y-4">
+            <motion.h1 
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-none uppercase text-slate-900 font-display"
+            >
+              СОХРАНИ СВОИ РУКИ.<br />
+              <span className="text-emerald-600 font-black">
+                УДВОЙ СВОЙ ДОХОД.
+              </span>
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-slate-500 text-base md:text-lg max-w-xl leading-relaxed"
+            >
+              Научитесь работать с глубокими тканями без нагрузки на суставы. Пошаговая техника использования скребков для профессионалов. Снизьте нагрузку на кисти на <span className="text-emerald-600 font-bold">80%</span>.
+            </motion.p>
+          </div>
+
+          {/* Action Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-4 pt-2"
+          >
+            <button
+              onClick={() => onScrollToSection('demo-lessons')}
+              className="group flex items-center justify-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-8 py-4 rounded-xl transition-all duration-300 shadow-md shadow-emerald-600/10 hover:shadow-lg transform hover:-translate-y-0.5 cursor-pointer"
+            >
+              <Play className="w-5 h-5 fill-white" />
+              <span>СМОТРЕТЬ ДЕМО-УРОКИ</span>
+            </button>
+            <button
+              onClick={() => onScrollToSection('calculator')}
+              className="flex items-center justify-center gap-3 bg-white hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold px-8 py-4 rounded-xl shadow-sm transition-all duration-300 cursor-pointer"
+            >
+              <Calculator className="w-5 h-5 text-emerald-600" />
+              <span>КАЛЬКУЛЯТОР ОКУПАЕМОСТИ</span>
+            </button>
+          </motion.div>
+
+          {/* Quick Core Outcomes */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-200"
+          >
+            <div className="flex items-center gap-3 p-1">
+              <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg shrink-0">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">🛡️ Здоровые суставы</h4>
+                <p className="text-xs text-slate-500">Защита кистей и пальцев</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-3 p-1">
+              <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg shrink-0">
+                <TrendingUp className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">💵 Рост дохода</h4>
+                <p className="text-xs text-slate-500">Повышение чека от 40%</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-1">
+              <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg shrink-0">
+                <Sparkles className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-slate-900">😲 WOW-эффект</h4>
+                <p className="text-xs text-slate-500">Клиенты в восторге</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Right Column: Hero Visual Feature Box */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="lg:col-span-5 relative"
+        >
+          {/* Aesthetic geometric frame */}
+          <div className="absolute -inset-1.5 bg-emerald-600 rounded-3xl opacity-10 blur-sm"></div>
+          
+          <div className="relative bg-slate-900 text-white rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl">
+            <div className="aspect-[4/3] bg-slate-800 rounded-xl overflow-hidden relative border border-slate-700 flex items-center justify-center group shadow-inner">
+              {/* Photo backdrop */}
+              <img 
+                src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&q=80" 
+                alt="Instrumental Massage Scraper technique"
+                className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity hover:opacity-80 transition-all duration-700"
+                referrerPolicy="no-referrer"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent"></div>
+              
+              {/* Play symbol on visualization */}
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between bg-slate-950/80 backdrop-blur-md p-3 rounded-lg border border-slate-700">
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-3 w-3 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-xs font-semibold text-white uppercase tracking-wider">Демо-доступ открыт</span>
+                </div>
+                <span className="text-[10px] text-slate-300 bg-white/10 px-2 py-0.5 rounded uppercase font-mono">3 урока бесплатно</span>
+              </div>
+            </div>
+
+            {/* Quick specifications */}
+            <div className="space-y-4">
+              <h3 className="font-bold text-lg text-white flex items-center gap-2 font-display">
+                <Award className="w-5 h-5 text-emerald-400" />
+                <span>Обучение за 7 часов</span>
+              </h3>
+              
+              <ul className="space-y-2 text-sm text-slate-300">
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span><strong>5 модулей:</strong> от физиологии до продвинутых протоколов</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span><strong>20+ уроков:</strong> макро-съемка каждого хвата и угла</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-emerald-400 font-bold">✓</span>
+                  <span><strong>Именной сертификат:</strong> электронный + физический</span>
+                </li>
+              </ul>
+
+              {/* Conversion Trust Factor */}
+              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 flex items-center justify-between">
+                <div>
+                  <div className="text-[10px] text-emerald-400 uppercase font-bold tracking-wider font-mono">Средняя окупаемость</div>
+                  <div className="text-lg font-black text-white mt-0.5">3 сеанса массажа</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[10px] text-slate-400 uppercase font-mono">Старт курса</div>
+                  <div className="text-sm font-bold text-emerald-400 mt-0.5">Сразу после оплаты</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Elegant scroll indicator */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-1 text-xs text-slate-400 tracking-widest cursor-pointer hover:text-emerald-600 transition-colors" onClick={() => onScrollToSection('program')}>
+        <span>ПРОГРАММА КУРСА</span>
+        <div className="w-5 h-8 border border-slate-300 rounded-full flex justify-center p-1">
+          <motion.div 
+            animate={{ y: [0, 10, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+            className="w-1.5 h-1.5 bg-emerald-600 rounded-full"
+          />
         </div>
       </div>
     </section>

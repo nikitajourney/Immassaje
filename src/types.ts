@@ -1,37 +1,40 @@
+export interface QuizQuestion {
+  id: string;
+  text: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+}
+
 export interface Lesson {
   id: string;
   title: string;
   duration: string;
-  videoUrl: string;
+  isLocked: boolean;
   description: string;
-  isUnlocked: boolean;
-  notes: string[];
+  videoUrl: string; // Simulated video url or poster
+  category: 'теория' | 'практика';
+  module: string;
+  quiz?: QuizQuestion[];
 }
 
-export interface CourseModule {
+export interface PricingPackage {
   id: string;
   title: string;
-  type: 'theory' | 'practice';
-  duration: string;
-  topics: string[];
+  subtitle: string;
+  price: number;
+  oldPrice: number;
+  features: string[];
+  badge?: string;
+  isPopular?: boolean;
 }
 
-export interface Testimonial {
+export interface Review {
   id: string;
   name: string;
-  city: string;
-  experience: string;
+  role: string;
+  avatarUrl: string;
   text: string;
   rating: number;
-  avatar: string;
-  result: string;
-}
-
-export interface Lead {
-  id: string;
-  name: string;
-  phone: string;
-  email: string;
-  date: string;
-  status: 'new' | 'contacted' | 'completed';
+  beforeAfter?: string; // Optional text or description of hands condition
 }

@@ -1,102 +1,141 @@
-import { useState, useEffect } from 'react';
-import { Sparkles, Calendar, BookOpen, Calculator, MessageSquare, Phone } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Award, Zap, Menu, X, Sparkles, Flame } from 'lucide-react';
 
-export default function Header({ onOpenLeadForm }: { onOpenLeadForm: () => void }) {
-  const [isScrolled, setIsScrolled] = useState(false);
+interface HeaderProps {
+  onScrollToSection: (id: string) => void;
+  activeSection: string;
+}
+
+export default function Header({ onScrollToSection, activeSection }: HeaderProps) {
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const navItems = [
+    { label: 'Программа', id: 'program' },
+    { label: 'Тест-драйв', id: 'demo-lessons' },
+    { label: 'Окупаемость', id: 'calculator' },
+    { label: 'Сертификат', id: 'certificate' },
+    { label: 'Тарифы', id: 'pricing' }
+  ];
+
+  const handleNavClick = (id: string) => {
+    setMobileMenuOpen(false);
+    onScrollToSection(id);
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-slate-950/80 backdrop-blur-md border-b border-slate-800 py-3 shadow-lg' 
+        ? 'bg-white/95 backdrop-blur-md border-b border-slate-200 py-3 shadow-sm' 
         : 'bg-transparent py-5'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4">
-          
-          {/* Logo */}
-          <div 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-2 cursor-pointer group"
+      <div className="max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between">
+        {/* Logo */}
+        <button 
+          onClick={() => onScrollToSection('hero')}
+          className="flex items-center gap-2 text-left bg-transparent border-0 cursor-pointer text-slate-900 hover:opacity-90"
+        >
+          <div className="w-9 h-9 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+            M
+          </div>
+          <div>
+            <span className="text-sm font-black tracking-tighter block uppercase leading-none text-slate-900 font-display">
+              MASSAGE.EDU
+            </span>
+            <span className="text-[9px] text-emerald-600 font-bold block tracking-wider uppercase">
+              Инструментальный массаж
+            </span>
+          </div>
+        </button>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-1 bg-slate-100/90 border border-slate-200/60 p-1 rounded-full">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <button
+                key={item.id}
+                id={`header-nav-btn-${item.id}`}
+                onClick={() => handleNavClick(item.id)}
+                className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wide transition-all uppercase cursor-pointer ${
+                  isActive 
+                    ? 'bg-emerald-600 text-white shadow-sm' 
+                    : 'text-slate-600 hover:text-emerald-600 hover:bg-slate-200/50'
+                }`}
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Quick Purchase CTA */}
+        <div className="hidden md:block">
+          <button
+            onClick={() => onScrollToSection('pricing')}
+            className="bg-slate-900 hover:bg-slate-800 text-white font-bold px-5 py-2 rounded-full text-xs uppercase tracking-wide transition-all active:scale-95 cursor-pointer flex items-center gap-1.5 shadow-sm"
           >
-            <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-slate-950 font-serif font-extrabold shadow-lg shadow-amber-500/10 group-hover:scale-105 transition-all">
-              M
-            </div>
-            <div className="hidden sm:block">
-              <span className="block text-sm font-bold tracking-tight text-white uppercase">
-                Инструментальный Массаж
-              </span>
-              <span className="block text-[10px] text-slate-400 font-medium tracking-widest uppercase">
-                Онлайн-курс • IASTM
-              </span>
-            </div>
-          </div>
-
-          {/* Desktop Navigation links */}
-          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
-            <button 
-              onClick={() => scrollToSection('trial-lessons')}
-              className="hover:text-amber-400 transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              Пробные уроки
-            </button>
-            <button 
-              onClick={() => scrollToSection('syllabus')}
-              className="hover:text-amber-400 transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <BookOpen className="w-4 h-4" />
-              Программа
-            </button>
-            <button 
-              onClick={() => scrollToSection('roi-calculator')}
-              className="hover:text-amber-400 transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <Calculator className="w-4 h-4" />
-              Окупаемость
-            </button>
-            <button 
-              onClick={() => scrollToSection('testimonials')}
-              className="hover:text-amber-400 transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <MessageSquare className="w-4 h-4" />
-              Отзывы
-            </button>
-          </nav>
-
-          {/* Header Action Button */}
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={onOpenLeadForm}
-              className="hidden lg:flex items-center gap-1.5 text-xs text-slate-300 hover:text-white transition-colors"
-            >
-              <Phone className="w-4 h-4 text-amber-500" />
-              Заказать звонок
-            </button>
-            <button
-              onClick={onOpenLeadForm}
-              className="bg-amber-500 text-slate-950 font-semibold py-2.5 px-5 rounded-xl hover:bg-amber-400 hover:shadow-lg hover:shadow-amber-500/10 active:scale-95 transition-all duration-300 text-xs uppercase tracking-wider"
-            >
-              Начать обучение за 4500₽
-            </button>
-          </div>
-
+            <Flame className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Начать обучение</span>
+          </button>
         </div>
+
+        {/* Mobile menu trigger */}
+        <button 
+          id="mobile-menu-toggle"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden text-slate-900 p-2 hover:bg-slate-100 rounded-xl transition-all cursor-pointer"
+        >
+          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
       </div>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white border-b border-slate-200"
+          >
+            <div className="px-4 pt-2 pb-6 space-y-2 flex flex-col">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  id={`mobile-nav-btn-${item.id}`}
+                  onClick={() => handleNavClick(item.id)}
+                  className="w-full text-left p-3.5 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-50 hover:text-emerald-600 transition-all uppercase tracking-wider cursor-pointer"
+                >
+                  {item.label}
+                </button>
+              ))}
+              <div className="pt-4 border-t border-slate-100">
+                <button
+                  onClick={() => handleNavClick('pricing')}
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-xl text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-emerald-600/10"
+                >
+                  <span>ЗАПИСАТЬСЯ НА КУРС</span>
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
