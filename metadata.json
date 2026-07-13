@@ -1,0 +1,6 @@
+{
+  "name": "Курс инструментального массажа",
+  "description": "Стильный и современный сайт-воронка для продажи онлайн-курса по инструментальному массажу (IASTM) с интерактивным калькулятором окупаемости и пробными уроками.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
